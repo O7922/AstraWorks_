@@ -1,0 +1,71 @@
+手順
+
+■Apacheインストール
+sudo apt update
+sudo apt install apache2 -y
+
+■Apache起動
+sudo systemctl status apache2
+
+■フォルダ移動
+cd /var/www/html
+
+■/var/www/htmlにgltファイル移動
+sudo mv /media/sf_Debian_webTest01/Debian_webTest01/gakkou04.glb /var/www/html/
+
+権限を与える
+sudo chmod 644 /var/www/html/gakkou04.glb
+
+
+■sudo nano /var/www/html/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Viewer</title>
+
+  <script type="module"
+    src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+  </script>
+
+  <style>
+    body{
+      margin:0;
+      background:#111;
+    }
+
+    model-viewer{
+      width:100vw;
+      height:100vh;
+    }
+  </style>
+</head>
+
+<body>
+
+<model-viewer
+  src="gakkou04.glb"
+  alt="3D Model"
+  auto-rotate
+  camera-controls
+  shadow-intensity="1">
+</model-viewer>
+
+</body>
+</html>
+
+
+■sudo nano /etc/apache2/apache2.conf設定
+一番下に以下を追加
+AddType model/gltf-binary .glb
+AddType model/gltf+json .gltf
+
+
+
+
+
+
+
+
+
+
